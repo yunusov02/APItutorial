@@ -1,10 +1,19 @@
 from fastapi import FastAPI
 
-app = FastAPI()
+from src.books.routes import book_router
 
+version = "v1"
 
-@app.get("/")
-async def root():
-    return {"message": "Hello World"}
+app = FastAPI(
+    title="Bookly",
+    description="A RESTful API for a book review web service",
+    version=version
+)
+
+app.include_router(
+    book_router,
+    prefix=f"/api/{version}",
+    tags=["books"]
+)
 
 
